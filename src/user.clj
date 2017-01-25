@@ -6,21 +6,19 @@
             [mtgcollection.mtgjson :as mtgjson]
             [mtgcollection.schema :as schema]))
 
-(defn mtg-json-data []
-  (-> "AllSets-x.json" io/resource io/reader json/parse-stream))
+(defn- mtg-json-data []
+  (-> "AllSets-x.json" io/resource io/reader json/parse-stream vals))
 
-(defn insert-set-and-card-data [conn sets]
-  (->> sets
-       (map mtgjson/set-tx-data)
-       (apply concat)
-       (api/transact conn)))
+(defn- load-mtgjson-into-datomic []
+  (let [conn (api/connect db-uri)]
+    (doseq [json (mtg-json-data)]
+      (let [set-data (mtgjson/set-tx-data json)]
+        (println (get json "code") (get json "name"))
+        (api/transact conn set-data)))))
 
 (defn reset-db []
   (let [db-uri (env :datomic-uri)]
     (api/delete-database db-uri)
     (api/create-database db-uri)
     (schema/setup-db-schema db-uri)
-    (let [conn (api/connect db-uri)]
-      (->> (mtg-json-data)
-           vals
-           (insert-set-and-card-data conn)))))
+    (load-mtgjson-into-datomic)))
