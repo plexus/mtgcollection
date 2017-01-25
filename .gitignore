@@ -1,3 +1,8 @@
+/*.log
+/target
+/*-init.clj
+/resources/public/js/compiled
+out
 /target
 /classes
 /checkouts
