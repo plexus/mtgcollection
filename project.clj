@@ -26,7 +26,8 @@
 
                  [reagent "0.6.0"]
                  [re-frame "0.9.1"]
-                 [compojure "1.5.2"]]
+                 [compojure "1.5.2"]
+                 [ring-middleware-format "0.7.0"]]
 
 
   :plugins [[lein-environ "1.1.0"]
@@ -71,7 +72,8 @@
                            :pretty-print false}}]}
 
   :figwheel {:css-dirs ["resources/public/css"]
-             :server-logfile "log/figwheel.log"}
+             :server-logfile "log/figwheel.log"
+             :ring-handler user/dev-ring-handler}
 
   :jvm-opts ["-Ddatomic.txTimeoutMsec=300000"]
 
