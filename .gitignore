@@ -15,3 +15,6 @@ pom.xml.asc
 .hgignore
 .hg/
 IMG
+log
+put_io.rest
+build.boot.bak

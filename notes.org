@@ -1,0 +1,17 @@
+* Links
+  - [[http://www.slightlymagic.net/forum/viewtopic.php?f=15&t=18042#][Torrent with card scans]]
+
+* Image missing
+
+https://mtg.arnebrasseur.net/EMN/Weirded Vampire.xlhq.jpg
+
+http://mtgsalvation.gamepedia.com/Set#List_of_Magic_expansions_and_sets
+
+C15 en BFZ zijn er nog
+
+Missing:
+
+| EMA | 2016-06 | Eternal Masters                  | {EMA_symbol} | Compilation set  |                                                      |
+| C16 | 2016-11 | Commander 2016                   | {C16_symbol} | Box set          | Commander set #6                                     |
+| PCA | 2016-11 | Planechase Anthology             | {PCA_symbol} | Box set          | Planechase set #3                                    |
+| AER | 2017-01 | Aether Revolt                    | {AER_symbol} | Expansion set    | 73rd expansion                                       |

@@ -29,7 +29,8 @@
                  [reagent "0.6.0"]
                  [re-frame "0.9.1"]
                  [cljs-ajax "0.5.8"]
-                 [day8.re-frame/http-fx "0.1.3"]]
+                 [day8.re-frame/http-fx "0.1.3"]
+                 [buddy "1.3.0"]]
 
 
   :plugins [[lein-environ "1.1.0"]
@@ -74,8 +75,7 @@
                            :pretty-print false}}]}
 
   :figwheel {:css-dirs ["resources/public/css"]
-             :server-logfile "log/figwheel.log"
-             :ring-handler user/dev-ring-handler}
+             :server-logfile "log/figwheel.log"}
 
   :jvm-opts ["-Ddatomic.txTimeoutMsec=300000"]
 

@@ -5,3 +5,18 @@ h1 {
 .card {
   border-radius: 50px;
 }
+
+body {
+  background-color: #75A88B;
+}
+
+.navbar {
+  background-color: #335140;
+  color: #fff;
+  line-height: 1.5em;
+  font-size: 2em;
+}
+
+.navbar a {
+  color: #fff;
+}

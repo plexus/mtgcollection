@@ -1,22 +1,18 @@
 (ns user
   (:require [cheshire.core :as json]
             [clojure.java.io :as io]
+            [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
             [datomic.api :as api]
             [environ.core :refer [env]]
-
+            [ring.middleware.reload :refer [wrap-reload]]
+            [figwheel-sidecar.config :as fw-config]
+            [figwheel-sidecar.repl-api :as fw-repl-api]
+            [figwheel-sidecar.system :as fw-sys]
+            [garden-watcher.core :refer [new-garden-watcher]]
             [mtgcollection.mtgjson :as mtgjson]
             [mtgcollection.schema :as schema]
-            [mtgcollection.application :as app]
-
-            [figwheel-sidecar.config :as fw-config]
-            [figwheel-sidecar.system :as fw-sys]
-            [figwheel-sidecar.repl-api :as fw-repl-api]
-
-            [garden-watcher.core :refer [new-garden-watcher]]
-            [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
-            [reloaded.repl :refer [system init start stop go reset reset-all]]
-
-            [com.stuartsierra.component :as component]))
+            [mtgcollection.system :refer [prod-system]]
+            [reloaded.repl :refer [system]]))
 
 (defn- mtg-json-data []
   (-> "AllSets-x.json" io/resource io/reader json/parse-stream vals))
@@ -36,17 +32,12 @@
     (load-mtgjson-into-datomic db-uri)))
 
 (defn dev-system []
-  (merge
-   (dissoc (app/app-system) :http)
-   (component/system-map
-    :figwheel-system (fw-sys/figwheel-system (fw-config/fetch-config))
-    :css-watcher (fw-sys/css-watcher {:watch-paths ["resources/public/css"]})
-    :garden-watcher (new-garden-watcher ['mtgcollection.styles]))))
-
-(defn dev-ring-handler
-  "Passed to Figwheel so it can pass on requests"
-  [req]
-  ((get-in reloaded.repl/system [:handler :handler]) req))
+  (-> (prod-system)
+      (update-in [:middleware :middleware :middleware] conj wrap-reload)
+      (assoc
+       :figwheel-system (fw-sys/figwheel-system (fw-config/fetch-config))
+       :css-watcher (fw-sys/css-watcher {:watch-paths ["resources/public/css"]})
+       :garden-watcher (new-garden-watcher ['mtgcollection.styles]))))
 
 (defn cljs-repl
   ([]
