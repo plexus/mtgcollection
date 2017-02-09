@@ -15,6 +15,8 @@
 
                  [ring "1.5.0"]
                  [ring/ring-defaults "0.2.1"]
+                 [ring-middleware-format "0.7.0"]
+                 [compojure "1.5.2"]
 
                  [cheshire "5.7.0"]
                  [clj-time "0.13.0"]
@@ -26,8 +28,8 @@
 
                  [reagent "0.6.0"]
                  [re-frame "0.9.1"]
-                 [compojure "1.5.2"]
-                 [ring-middleware-format "0.7.0"]]
+                 [cljs-ajax "0.5.8"]
+                 [day8.re-frame/http-fx "0.1.3"]]
 
 
   :plugins [[lein-environ "1.1.0"]

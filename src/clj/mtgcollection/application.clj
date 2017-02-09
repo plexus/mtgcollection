@@ -15,7 +15,7 @@
 (defn app-routes [{:keys [datomic]}]
   (routes
    (GET "/random-card" []
-     {:body (random-card (:conn datomic))})))
+     {:body (#'random-card (:conn datomic))})))
 
 (defn app-system []
   (component/system-map

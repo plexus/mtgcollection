@@ -1,6 +1,7 @@
 (ns mtgcollection.core
     (:require [reagent.core :as reagent]
               [re-frame.core :as re-frame]
+              ^:keep [day8.re-frame.http-fx]
               [mtgcollection.events]
               [mtgcollection.subs]
               [mtgcollection.views :as views]
