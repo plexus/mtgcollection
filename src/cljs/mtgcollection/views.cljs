@@ -57,12 +57,27 @@
           :login [:a {:on-click #(reset! type :register)} "register instead"]
           :register [:a {:on-click #(reset! type :login)} "log in instead"])]])))
 
+js/FormData.
+
+(defn csv-upload-form []
+  (let [form-element (atom nil)]
+    (fn []
+      [:form.text-left {:ref #(reset! form-element %)
+                        :encType "multipart/form-data"
+                        :on-submit #(do
+                                      (.preventDefault %)
+                                      (>evt [:collection/upload-csv (js/FormData. @form-element)]))}
+       [:input {:name "file" :type "file" :size "20"}]
+       [:input {:type "submit" :name "submit" :value "Upload"}]])))
+
 (defn main-page []
   [:div
    [:div.row.margin-bottom
     [:div.col-md-4.col-md-push-4.text-center
-     [:h2
-      "Welcome to Manapool."]]]])
+     [:h2 "Welcome to Manapool.xx"]]]
+   [:div
+    [:div.col-md-4.col-md-push-4.text-center
+     [csv-upload-form]]]])
 
 (defn login-page []
   [:div

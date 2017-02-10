@@ -71,7 +71,10 @@
                  :cardinality :db.cardinality/one}
             #:db{:ident :user/password
                  :valueType :db.type/string
-                 :cardinality :db.cardinality/one}])
+                 :cardinality :db.cardinality/one}
+            #:db{:ident :user/owned-card
+                 :valueType :db.type/ref
+                 :cardinality :db.cardinality/many}])
 
 (defn setup-db-schema [db-uri]
   (let [conn (api/connect db-uri)]
@@ -79,7 +82,3 @@
                         sets
                         cards
                         users))))
-
-
-(comment
-  (setup-db-schema "datomic:dev://localhost:4334/mtgcollection"))

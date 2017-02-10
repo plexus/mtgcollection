@@ -1,21 +1,7 @@
 (ns mtgcollection.core
-  (:require [datomic.api :as api]
-            [environ.core :refer [env]]))
+  (:require [datomic.api :as api]))
 
 ;; (def conn (api/connect (env :datomic-uri)))
-
-(defn random-card [conn]
-  (let [db (api/db conn)
-        card-id (ffirst (api/q '[:find [(sample 1 ?eid)] :where [?eid :card/name _]] db))
-        card-data (api/pull db '[*] card-id)
-        set-id (-> card-data :card/set :db/id)
-        set-data (api/pull db '[*] set-id)]
-    (merge card-data set-data)))
-
-
-
-
-
 
 (comment
   (api/q '[:find ?handle

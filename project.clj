@@ -32,7 +32,8 @@
                  [day8.re-frame/http-fx "0.1.3"]
                  [buddy "1.3.0"]
                  [re-frisk "0.3.2"]
-                 [clj-time "0.13.0"]]
+                 [clj-time "0.13.0"]
+                 [org.clojure/data.csv "0.1.3"]]
 
 
   :plugins [[lein-environ "1.1.0"]

@@ -1,5 +1,6 @@
 (ns mtgcollection.events
-  (:require [mtgcollection.db :as db]
+  (:require [ajax.core :refer [raw-response-format text-request-format]]
+            [mtgcollection.db :as db]
             [mtgcollection.util.http :refer [GET POST]]
             [re-frame.cofx :refer [inject-cofx]]
             [re-frame.core :as re-frame :refer [debug reg-event-db reg-event-fx]]))
@@ -54,3 +55,9 @@
                                                :user user
                                                :show-spinner false)
                                     :storage {:user user}}))
+
+(reg-event-fx :collection/upload-csv [debug]
+              (fn [{:keys [db]} [_ form-data]]
+                {:http-xhrio (POST "/collection/csv"
+                                 :body form-data
+                                 :on-success [:upload-ok])}))
