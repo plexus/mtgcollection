@@ -15,7 +15,7 @@
   :request-random-card
   (fn [{:keys [db]} _]
     {:db (assoc db :show-spinner true)
-     :http-xhrio (GET "/random-card" :on-success [:install-new-card])}))
+     :ajax [:get "/random-card" {:dispatch [:install-new-card]}]}))
 
 (reg-event-db :install-new-card
               (fn [db [_ card]]
@@ -25,19 +25,20 @@
  :user/register
  (fn [{:keys [db]} [_ handle password]]
    {:db (assoc db :show-spinner true)
-    :http-xhrio (POST "/register"
-                  :params {:handle handle
-                           :password password}
-                  :on-success [:user/handle-login])}))
+    :ajax [:post "/register"
+           :params {:handle handle
+                    :password password}
+           :dispatch [:user/handle-login]]}))
 
 (reg-event-fx
  :user/login
  (fn [{:keys [db]} [_ handle password]]
    {:db (assoc db :show-spinner true)
-    :http-xhrio (POST "/login"
-                  :params {:handle handle
-                           :password password}
-                  :on-success [:user/handle-login])}))
+    :ajax [:post "/login"
+           {:params {:handle handle
+                     :password password}
+            :dispatch [:user/handle-login]}]}))
+
 
 (reg-event-fx :user/logout
               (fn [{:keys [db]} _]
@@ -58,6 +59,6 @@
 
 (reg-event-fx :collection/upload-csv [debug]
               (fn [{:keys [db]} [_ form-data]]
-                {:http-xhrio (POST "/collection/csv"
-                                 :body form-data
-                                 :on-success [:upload-ok])}))
+                {:ajax [:post "/collection/csv"
+                        {:body form-data
+                         :dispatch [:upload-ok]}]}))

@@ -15,7 +15,8 @@
     (let [result (apply f (get map key) args)]
       (if (nil? result)
         (dissoc map key)
-        (assoc map key result)))))
+        (assoc map key result)))
+    map))
 
 (def date-format (time-fmt/formatter "yyyy-MM-dd"))
 

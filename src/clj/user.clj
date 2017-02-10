@@ -1,10 +1,10 @@
 (ns user
   (:require [cheshire.core :as json]
             [clojure.java.io :as io]
+            [clojure.pprint :refer [pprint]]
             [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
             [datomic.api :as api]
             [environ.core :refer [env]]
-            [ring.middleware.reload :refer [wrap-reload]]
             [figwheel-sidecar.config :as fw-config]
             [figwheel-sidecar.repl-api :as fw-repl-api]
             [figwheel-sidecar.system :as fw-sys]
@@ -12,7 +12,9 @@
             [mtgcollection.mtgjson :as mtgjson]
             [mtgcollection.schema :as schema]
             [mtgcollection.system :refer [prod-system]]
-            [reloaded.repl :refer [system]]))
+            [reloaded.repl :refer [system]]
+            [ring.middleware.reload :refer [wrap-reload]]
+            [datomic.api :as d]))
 
 (defn- mtg-json-data []
   (-> "AllSets-x.json" io/resource io/reader json/parse-stream vals))
@@ -52,3 +54,6 @@
 
 (defn datomic []
   (:conn (:datomic reloaded.repl/system)))
+
+(defn q [qry & args]
+  (apply d/q qry (d/db (datomic)) args))

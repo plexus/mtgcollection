@@ -1,5 +1,6 @@
 (ns mtgcollection.routes.user
-  (:require [buddy.core.hash :as hash]
+  (:require [buddy.auth.backends.token :refer [jwe-backend]]
+            [buddy.core.hash :as hash]
             [buddy.hashers :as hashers]
             [buddy.sign.jwt :as jwt]
             [clj-time.core :refer [days from-now]]
@@ -10,6 +11,11 @@
 
 (defonce secret (hash/sha256 "gQ7RO1qJuU90VFd0ncV++yApix885FTWBI3vWcN0DJyGVJlyiPSh1A=="))
 (defonce encryption {:alg :a256kw :enc :a128gcm})
+
+(defn buddy-backend []
+  (jwe-backend {:secret secret
+                :options encryption}))
+
 
 (defn- web-token-response [user]
   (let [claims {:user user

@@ -1,8 +1,10 @@
 (ns mtgcollection.system
   (:gen-class)
-  (:require [com.stuartsierra.component :as component]
+  (:require [buddy.auth.middleware :refer [wrap-authentication]]
+            [com.stuartsierra.component :as component]
             [environ.core :refer [env]]
             [mtgcollection.routes :refer [app-routes]]
+            [mtgcollection.routes.user :as user-routes]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]
             [ring.middleware.format :refer [wrap-restful-format]]
             [system.components.datomic :refer [new-datomic-db]]
@@ -18,8 +20,11 @@
    :routes (-> (new-endpoint app-routes)
                (component/using [:datomic]))
 
-   :middleware (new-middleware  {:middleware [[wrap-defaults api-defaults]
-                                              wrap-restful-format]})
+   :middleware (new-middleware  {:middleware [[wrap-defaults :defaults]
+                                              wrap-restful-format
+                                              [wrap-authentication :auth-backend]]
+                                 :auth-backend (user-routes/buddy-backend)
+                                 :defaults api-defaults})
 
    :handler (-> (new-handler)
                 (component/using [:routes :middleware]))
