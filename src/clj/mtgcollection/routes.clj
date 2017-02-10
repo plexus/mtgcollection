@@ -18,12 +18,12 @@
   (wrap-multipart-params
    (POST "/collection/csv" [file :as req]
      (when-let [uid (get-in req [:identity :user :db/id])]
+       (prn uid)
        (let [db (d/db db-conn)
-             {:keys [tx not-found]} (->> (read-csv (:tempfile file))
-                                         (drop 1)
-                                         (collection/import-csv db uid))]
-         (d/transact db-conn [tx])
-         (prn {:not-found not-found})
+             {:keys [txs not-found]} (->> (read-csv (:tempfile file))
+                                          (drop 1)
+                                          (collection/import-csv db uid))]
+         (d/transact db-conn txs)
          {:body {:not-found not-found}})))))
 
 (defn app-routes [{:keys [datomic]}]

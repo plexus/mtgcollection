@@ -72,13 +72,21 @@
             #:db{:ident :user/password
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one}
-            #:db{:ident :user/owned-card
+            #:db{:ident :user/collection
                  :valueType :db.type/ref
                  :cardinality :db.cardinality/many}])
+
+(def collection [#:db{:ident :owned-card/card
+                      :valueType :db.type/ref
+                      :cardinality :db.cardinality/one}
+                 #:db{:ident :owned-card/count
+                      :valueType :db.type/long
+                      :cardinality :db.cardinality/one}])
 
 (defn setup-db-schema [db-uri]
   (let [conn (api/connect db-uri)]
     (api/transact conn (concat
                         sets
                         cards
-                        users))))
+                        users
+                        collection))))

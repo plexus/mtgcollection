@@ -26,9 +26,9 @@
  (fn [{:keys [db]} [_ handle password]]
    {:db (assoc db :show-spinner true)
     :ajax [:post "/register"
-           :params {:handle handle
-                    :password password}
-           :dispatch [:user/handle-login]]}))
+           {:params {:handle handle
+                     :password password}
+            :dispatch [:user/handle-login]}]}))
 
 (reg-event-fx
  :user/login
@@ -45,11 +45,13 @@
                 {:db (dissoc db :user)
                  :storage {:user nil}}))
 
-(reg-event-db :http/request-failed (fn [db [_ res]]
-                                     (assoc db
-                                            :api/error (:error res)
-                                            ;;:show-spinner false
-                                            )))
+(reg-event-db :ajax/failed (fn [db [_ res]]
+                             (assoc db
+                                    :api/error (:error res)
+                                    :show-spinner false)))
+
+(reg-event-db :ajax/ok (fn [db]
+                         (assoc db :show-spinner false)))
 
 (reg-event-fx :user/handle-login (fn [{:keys [db storage]} [_ user]]
                                    {:db (assoc db
@@ -59,6 +61,7 @@
 
 (reg-event-fx :collection/upload-csv [debug]
               (fn [{:keys [db]} [_ form-data]]
-                {:ajax [:post "/collection/csv"
+                {:db (assoc db :show-spinner true)
+                 :ajax [:post "/collection/csv"
                         {:body form-data
-                         :dispatch [:upload-ok]}]}))
+                         :dispatch [:http/done]}]}))

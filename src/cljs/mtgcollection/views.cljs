@@ -74,7 +74,7 @@ js/FormData.
   [:div
    [:div.row.margin-bottom
     [:div.col-md-4.col-md-push-4.text-center
-     [:h2 "Welcome to Manapool.xx"]]]
+     [:h2 "Welcome to Manapool."]]]
    [:div
     [:div.col-md-4.col-md-push-4.text-center
      [csv-upload-form]]]])
