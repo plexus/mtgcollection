@@ -66,9 +66,12 @@
                  :cardinality :db.cardinality/one}])
 
 (def users [#:db{:ident :user/handle
-                 :valueType :db.type/string}
+                 :unique :db.unique/value
+                 :valueType :db.type/string
+                 :cardinality :db.cardinality/one}
             #:db{:ident :user/password
-                 :valueType :db.type/string}])
+                 :valueType :db.type/string
+                 :cardinality :db.cardinality/one}])
 
 (defn setup-db-schema [db-uri]
   (let [conn (api/connect db-uri)]

@@ -30,7 +30,9 @@
                  [re-frame "0.9.1"]
                  [cljs-ajax "0.5.8"]
                  [day8.re-frame/http-fx "0.1.3"]
-                 [buddy "1.3.0"]]
+                 [buddy "1.3.0"]
+                 [re-frisk "0.3.2"]
+                 [clj-time "0.13.0"]]
 
 
   :plugins [[lein-environ "1.1.0"]
@@ -87,7 +89,7 @@
   {:dev
    {:dependencies [[figwheel "0.5.8"]
                    [figwheel-sidecar "0.5.8"]
-                   [lambdaisland/garden-watcher "0.2.0"]
+                   [lambdaisland/garden-watcher "0.3.0"]
                    [com.cemerick/piggieback "0.2.1"]
                    [refactor-nrepl "2.3.0-SNAPSHOT"]
                    [reloaded.repl "0.2.3"]]}})

@@ -1,7 +1,7 @@
 (ns mtgcollection.events
-    (:require [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx]]
-              [mtgcollection.db :as db]
-              [ajax.core :as ajax]))
+  (:require [mtgcollection.db :as db]
+            [mtgcollection.util.http :refer [GET POST]]
+            [re-frame.core :as re-frame :refer [debug reg-event-db reg-event-fx]]))
 
 (reg-event-db
  :initialize-db
@@ -12,13 +12,30 @@
   :request-random-card
   (fn [{:keys [db]} _]
     {:db (assoc db :show-twirly true)
-     :http-xhrio {:method          :get
-                  :uri             "/random-card"
-                  :format          (ajax/transit-request-format)
-                  :response-format (ajax/transit-response-format)
-                  :on-success      [:install-new-card]
-                  :on-failure      [:fail]}}))
+     :http-xhrio (GET "/random-card" :on-success [:install-new-card])}))
 
 (reg-event-db :install-new-card
               (fn [db [_ card]]
                 (assoc db :card card)))
+
+(reg-event-fx
+  :user/register
+  (fn [{:keys [db]} [_ handle password]]
+    {:db (assoc db :show-twirly true)
+     :http-xhrio (POST "/register"
+                     :params {:handle handle
+                              :password password}
+                     :on-success [:user/handle-login])}))
+
+(reg-event-fx
+  :user/login [debug]
+  (fn [{:keys [db]} [_ handle password]]
+    {:db (assoc db :show-twirly true)
+     :http-xhrio (POST "/login"
+                     :params {:handle handle
+                              :password password}
+                     :on-success [:user/handle-login])}))
+
+(reg-event-db :http/request-failed (fn [db] db))
+
+(reg-event-db :user/handle-login (fn [db [_ user]] (assoc db :user user)))

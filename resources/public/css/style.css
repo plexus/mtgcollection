@@ -1,13 +1,10 @@
-h1 {
-  text-decoration: underline;
-}
-
 .card {
-  border-radius: 50px;
+  border-radius: 10px;
+  width: 300px;
 }
 
 body {
-  background-color: #75A88B;
+  background-color: #f2f7f4;
 }
 
 .navbar {
@@ -19,4 +16,8 @@ body {
 
 .navbar a {
   color: #fff;
+}
+
+.margin-bottom {
+  margin-bottom: 2rem;
 }

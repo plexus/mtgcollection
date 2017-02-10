@@ -5,12 +5,14 @@
               [mtgcollection.events]
               [mtgcollection.subs]
               [mtgcollection.views :as views]
-              [mtgcollection.config :as config]))
+              [mtgcollection.config :as config]
+              [re-frisk.core :refer [enable-re-frisk!]]))
 
 
 (defn dev-setup []
   (when config/debug?
     (enable-console-print!)
+    (enable-re-frisk!)
     (println "dev mode")))
 
 (defn mount-root []
