@@ -6,6 +6,7 @@
               [mtgcollection.subs]
               [mtgcollection.views :as views]
               [mtgcollection.config :as config]
+              [mtgcollection.util.localstorage]
               [re-frisk.core :refer [enable-re-frisk!]]))
 
 

@@ -4,3 +4,5 @@
 
 (re-frame/reg-sub :name (fn [db] (:name db)))
 (re-frame/reg-sub :card (fn [db] (:card db)))
+(re-frame/reg-sub :user/handle (fn [db] (:user/handle (:user db))))
+(re-frame/reg-sub :show-spinner (fn [db] (:show-spinner db)))

@@ -1,3 +1,7 @@
+a {
+  cursor: pointer;
+}
+
 .card {
   border-radius: 10px;
   width: 300px;
@@ -10,12 +14,24 @@ body {
 .navbar {
   background-color: #335140;
   color: #fff;
-  line-height: 1.5em;
-  font-size: 2em;
+  line-height: 3rem;
+}
+
+.navbar .branding a {
+  color: #fff;
 }
 
 .navbar a {
-  color: #fff;
+  color: #ccccff;
+  text-decoration: underline;
+}
+
+.navbar .spinner {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  left: 50%;
+  margin: 1.2em;
 }
 
 .margin-bottom {

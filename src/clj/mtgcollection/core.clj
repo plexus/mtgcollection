@@ -18,6 +18,9 @@
 
 
 (comment
+  (api/q '[:find ?handle
+           :where [?eid :user/handle ?handle]] (api/db (user/datomic)))
+
   (api/q '[:find ?name ?manaCost ?type ?text
            :in $
            :where

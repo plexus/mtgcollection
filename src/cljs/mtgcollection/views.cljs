@@ -2,6 +2,9 @@
     (:require [re-frame.core :as re-frame :refer [subscribe dispatch]]
               [reagent.core :as r]))
 
+(def <sub (comp deref subscribe))
+(def >evt dispatch)
+
 ;;https://mtg.arnebrasseur.net/ZEN/Trapfinder's%20Trick.xlhq.jpg
 (defn card []
   (let [card-sub (subscribe [:card])]
@@ -15,15 +18,26 @@
 (defn navbar []
   [:div.navbar
    [:div.container
-
-    [:a "Manapool"]]])
+    (when (<sub [:show-spinner])
+      [:img.spinner {:src "images/spinner.gif"}])
+    [:div.branding.col-md-9.h1
+     [:a "Manapool"]]
+    [:div.col-md-3.text-right
+     (when-let [handle (<sub [:user/handle])]
+       [:div
+        [:p "Logged in as " handle]
+        [:p [:a {:on-click #(>evt [:user/logout])} "log out"]]])]]])
 
 (defn login-form []
   (let [type (r/atom :login)
         handle (r/atom "")
-        password (r/atom "")]
+        password (r/atom "")
+        submit #(do (case @type
+                      :login (dispatch [:user/login @handle @password])
+                      :register (dispatch [:user/register @handle @password]))
+                    (.preventDefault %))]
     (fn []
-      [:div.login-form
+      [:form.login-form {:on-submit submit}
        [:div.form-group.row
         [:label.col-xs-3.col-form-label {:for "username"} "Username"]
         [:div.col-xs-9
@@ -33,30 +47,31 @@
        [:div.form-group.row
         [:label.col-xs-3 {:for "password"} "Password"]
         [:div.col-xs-9
-         [:input.form-control {:type "text"
+         [:input.form-control {:type "password"
                                :id "password"
                                :on-change #(reset! password (-> % .-target .-value))}]]]
-       [:input.form-control
-        (case @type
-          :login {:type "submit"
-                  :value "Login"
-                  :on-click #(dispatch [:user/login @handle @password])}
-          :register {:type "submit"
-                     :value "Register"
-                     :on-click #(dispatch [:user/register @handle @password])})]
+       [:input.form-control {:type "submit"
+                             :value (case @type :login "Login" :register "Register")}]
        [:div.text-center
         (case @type
           :login [:a {:on-click #(reset! type :register)} "register instead"]
           :register [:a {:on-click #(reset! type :login)} "log in instead"])]])))
 
-(defn front-page []
+(defn main-page []
+  [:div
+   [:div.row.margin-bottom
+    [:div.col-md-4.col-md-push-4.text-center
+     [:h2
+      "Welcome to Manapool."]]]])
+
+(defn login-page []
   [:div
    [:div.row.margin-bottom
     [:div.col-md-4.col-md-push-4.text-center
      [:h2
       "Welcome to Manapool."]
      [:h3
-      "Enjoy your stay!"]]]
+      "Have a shitload of fun!"]]]
    [:div.row
     [:div.col-md-4.col-md-push-4
      [login-form]]]])
@@ -65,4 +80,6 @@
   [:div.app
    [navbar]
    [:div.container
-    [front-page]]])
+    (if (<sub [:user/handle])
+      [main-page]
+      [login-page])]])

@@ -1,0 +1,7 @@
+:endpoint=http://localhost:10555
+
+#
+POST :endpoint/register
+Content-Type: application/edn
+
+{:handle "fooz" :password "bar"}

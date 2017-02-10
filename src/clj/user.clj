@@ -49,3 +49,6 @@
 
 (set-refresh-dirs "src" "dev")
 (reloaded.repl/set-init! #(dev-system))
+
+(defn datomic []
+  (:conn (:datomic reloaded.repl/system)))
