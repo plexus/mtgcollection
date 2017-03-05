@@ -5,35 +5,40 @@
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
 
-  :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
+  :dependencies [;; core
+                 [org.clojure/clojure "1.9.0-alpha14"]
                  [org.clojure/clojurescript "1.9.293" :scope "provided"]
                  [com.cognitect/transit-clj "0.8.297"]
                  [org.clojure/core.async "0.2.395"]
 
+                 ;; db
                  [com.datomic/datomic-pro "0.9.5544"]
                  [postgresql "9.3-1102.jdbc41"]
 
+                 ;; ring
                  [ring "1.5.0"]
                  [ring/ring-defaults "0.2.1"]
                  [ring-middleware-format "0.7.0"]
                  [compojure "1.5.2"]
+                 [buddy "1.3.0"]
 
+                 ;; util
                  [cheshire "5.7.0"]
                  [clj-time "0.13.0"]
                  [environ "1.1.0"]
+                 [org.clojure/data.csv "0.1.3"]
 
+                 ;; component
                  [com.stuartsierra/component "0.3.1"]
                  [org.danielsz/system "0.3.1"]
                  [org.clojure/tools.namespace "0.2.11"]
 
+                 ;; Frontend
                  [reagent "0.6.0"]
                  [re-frame "0.9.1"]
                  [cljs-ajax "0.5.8"]
                  [day8.re-frame/http-fx "0.1.3"]
-                 [buddy "1.3.0"]
                  [re-frisk "0.3.2"]
-                 [clj-time "0.13.0"]
-                 [org.clojure/data.csv "0.1.3"]
                  [cljs-ajax "0.5.8"]]
 
 

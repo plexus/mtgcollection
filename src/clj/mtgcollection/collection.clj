@@ -51,25 +51,25 @@
             :user/collection owned-card-ids})
      :not-found not-found}))
 
-;; (let [db (d/db (user/datomic))
-;;       uid 17592186078330
-;;       csv [[1 "Lightning Bolt" nil "4ED"]
-;;            [3 "Dark Ritual" nil "ICE"]]]
-;;   #_(find-cards-from-csv db csv)
-;;   (import-csv db uid csv))
 
 
 
+#_
+(let [db (d/db (user/datomic))
+      uid 17592186078330
+      csv [[1 "Lightning Bolt" nil "4ED"]
+           [3 "Dark Ritual" nil "ICE"]]]
+  #_(find-cards-from-csv db csv)
+  (import-csv db uid csv))
 
+#_
+(d/db (:conn (user/datomic)))
 
-#_(d/db (:conn (user/datomic)))
-
-
-;; (user/q '[:find ?user-id .
-;;           :where
-;;           [?user-id :user/handle "arne"]
-;;           ])
-
+#_
+(user/q '[:find ?user-id .
+          :where
+          [?user-id :user/handle "arne"]
+          ])
 
 #_
 (user/q '[:find ?name ?sname
