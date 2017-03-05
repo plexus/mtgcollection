@@ -29,7 +29,7 @@
    :handler (-> (new-handler)
                 (component/using [:routes :middleware]))
 
-   :http (-> (new-web-server (Integer. (or (env :port) 10555)))
+   :http (-> (new-web-server (Integer. (or (env :port) 10666)))
              (component/using [:handler]))))
 
 (defn -main [& _]

@@ -16,11 +16,11 @@
          code " - " set-name]))))
 
 (defn navbar []
-  [:div.navbar
+  [:div.pv4.washed-blue.bb.b-solid.bw1.b--dark-gray.bg-dark-green.flex
    [:div.container
     (when (<sub [:show-spinner])
       [:img.spinner {:src "images/spinner.gif"}])
-    [:div.branding.col-md-9.h1
+    [:div.branding.col-md-9.f1
      [:a "Manapool"]]
     [:div.col-md-3.text-right
      (when-let [handle (<sub [:user/handle])]
@@ -91,9 +91,24 @@ js/FormData.
     [:div.col-md-4.col-md-push-4
      [login-form]]]])
 
+(defn error-message [error]
+  [:div.mv2.mh1.ba.br1.b--solid.b--red.bg-washed-red
+   [:div.ph1.fr
+    [:a {:on-click #(>evt [:clear-error])} "x"]]
+   [:div.pv3.ph6.flex.items-center.justify-center
+    (case (:failure error)
+      :error
+      (case (-> error :response :error)
+        :login-failed "Login failed. Check your login/password."
+        (str "Couldn't handle request: " (pr-str error)))
+      (str "Unhandled error: " (pr-str error)))]
+   ])
+
 (defn main-panel []
   [:div.app
    [navbar]
+   (if-let [err (<sub [:api/error])]
+     [error-message err])
    [:div.container
     (if (<sub [:user/handle])
       [main-page]

@@ -47,7 +47,7 @@
 
 (reg-event-db :ajax/failed (fn [db [_ res]]
                              (assoc db
-                                    :api/error (:error res)
+                                    :api/error res
                                     :show-spinner false)))
 
 (reg-event-db :ajax/ok (fn [db]
@@ -64,4 +64,7 @@
                 {:db (assoc db :show-spinner true)
                  :ajax [:post "/collection/csv"
                         {:body form-data
-                         :dispatch [:http/done]}]}))
+                         :dispatch [:ajax/ok]}]}))
+
+(reg-event-db :clear-error (fn [db _]
+                             (dissoc db :api/error)))

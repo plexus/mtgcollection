@@ -99,4 +99,5 @@
                    [lambdaisland/garden-watcher "0.3.0"]
                    [com.cemerick/piggieback "0.2.1"]
                    [refactor-nrepl "2.3.0-SNAPSHOT"]
-                   [reloaded.repl "0.2.3"]]}})
+                   [reloaded.repl "0.2.3"]
+                   [binaryage/devtools "0.9.2"]]}})
