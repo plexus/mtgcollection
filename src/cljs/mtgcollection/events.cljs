@@ -6,10 +6,11 @@
             [re-frame.core :as re-frame :refer [debug reg-event-db reg-event-fx]]))
 
 (reg-event-fx :initialize-db [(inject-cofx :storage)]
-              (fn  [{:keys [storage]} _]
+              (fn [{:keys [storage]} _]
                 {:db (assoc
                       db/default-db
-                      :user (:user storage))}))
+                      :user (:user storage))
+                 :dispatch [:collection/fetch]}))
 
 (reg-event-fx
   :request-random-card
@@ -53,11 +54,13 @@
 (reg-event-db :ajax/ok (fn [db]
                          (assoc db :show-spinner false)))
 
-(reg-event-fx :user/handle-login (fn [{:keys [db storage]} [_ user]]
-                                   {:db (assoc db
-                                               :user user
-                                               :show-spinner false)
-                                    :storage {:user user}}))
+(reg-event-fx :user/handle-login [debug]
+              (fn [{:keys [db storage]} [_ user]]
+                {:db (assoc db
+                            :user user
+                            :show-spinner false)
+                 :storage {:user user}
+                 :dispatch [:collection/fetch]}))
 
 (reg-event-fx :collection/upload-csv [debug]
               (fn [{:keys [db]} [_ form-data]]
@@ -65,6 +68,17 @@
                  :ajax [:post "/collection/csv"
                         {:body form-data
                          :dispatch [:ajax/ok]}]}))
+
+(reg-event-fx :collection/fetch [debug]
+              (fn [{:keys [db]}]
+                {:db (assoc db :show-spinner true)
+                 :ajax [:get "/collection" {:dispatch [:collection/receive]}]}))
+
+(reg-event-fx :collection/receive [debug]
+              (fn [{:keys [db]} [_ coll]]
+                {:db (assoc db
+                            :show-spinner false
+                            :collection coll)}))
 
 (reg-event-db :clear-error (fn [db _]
                              (dissoc db :api/error)))

@@ -14,25 +14,39 @@
   (with-open [in-file (io/reader file)]
     (doall (csv/read-csv in-file))))
 
-(defn POST-upload-csv [db-conn]
-  (wrap-multipart-params
-   (POST "/collection/csv" [file :as req]
-     (when-let [uid (get-in req [:identity :user :db/id])]
-       (prn uid)
-       (let [db (d/db db-conn)
-             {:keys [txs not-found]} (->> (read-csv (:tempfile file))
-                                          (drop 1)
-                                          (collection/import-csv db uid))]
-         (d/transact db-conn txs)
-         {:body {:not-found not-found}})))))
+(defn- uid [req]
+  (get-in req [:identity :user :db/id]))
+
+(defn collection-routes [conn]
+  (routes
+   (GET "/collection" req
+     {:body
+      (if-let [uid (uid req)]
+        {:count (d/q '[:find (count ?cid) .
+                       :in $ ?uid
+                       :where
+                       [?uid :user/collection ?cid]]
+                     (d/db conn) uid)}
+        {:count 0})})
+
+   (wrap-multipart-params
+    (POST "/collection/csv" [file :as req]
+      (when-let [uid (uid req)]
+        (let [db (d/db conn)
+              {:keys [txs not-found]} (->> (read-csv (:tempfile file))
+                                           (drop 1)
+                                           (collection/import-csv db uid))]
+          (d/transact conn txs)
+          {:body {:not-found not-found}}))))))
 
 (defn app-routes [{:keys [datomic]}]
-  (routes
-   (GET "/" _
-     (some-> (res/resource-response "public/index.html")
-             (res/content-type "html")))
-   (GET "/random-card" []
-     {:body (#'random-card (:conn datomic))})
-   (user-routes datomic)
-   (POST-upload-csv (:conn datomic))
-   (resources "/")))
+  (let [conn (:conn datomic)]
+    (routes
+     (GET "/" _
+       (some-> (res/resource-response "public/index.html")
+               (res/content-type "html")))
+     (GET "/random-card" []
+       {:body (#'random-card conn)})
+     (user-routes datomic)
+     (collection-routes conn)
+     (resources "/"))))

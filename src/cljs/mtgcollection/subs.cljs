@@ -7,3 +7,4 @@
 (re-frame/reg-sub :user/handle (fn [db] (:user/handle (:user db))))
 (re-frame/reg-sub :show-spinner (fn [db] (:show-spinner db)))
 (re-frame/reg-sub :api/error (fn [db] (:api/error db)))
+(re-frame/reg-sub :collection/count (fn [db] (-> db :collection :count)))

@@ -72,6 +72,15 @@
           ])
 
 #_
+(user/q '[:find (count ?cid) .
+          :in $
+          :where
+          [?user-id :user/handle "arne"]
+          [?user-id :user/collection ?cid]
+          ])
+
+
+#_
 (user/q '[:find ?name ?sname
           :where
           [?user-id :user/handle "arne"]

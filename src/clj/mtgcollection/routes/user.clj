@@ -16,7 +16,6 @@
   (jwe-backend {:secret secret
                 :options encryption}))
 
-
 (defn- web-token-response [user]
   (let [claims {:user user
                 :exp (-> 3 days from-now)}

@@ -70,14 +70,18 @@ js/FormData.
        [:input {:name "file" :type "file" :size "20"}]
        [:input {:type "submit" :name "submit" :value "Upload"}]])))
 
+(defn subheader [& caption]
+  [:div.b--black.bb.mb3
+   (into [:h2.f3.mb2] caption)])
+
 (defn main-page []
-  [:div
-   [:div.row.margin-bottom
-    [:div.col-md-4.col-md-push-4.text-center
-     [:h2 "Welcome to Manapool."]]]
+  [:div.col-xs-12
    [:div
-    [:div.col-md-4.col-md-push-4.text-center
-     [csv-upload-form]]]])
+    [subheader "Collection (" (<sub [:collection/count]) ")"]
+    ]
+   [:div
+    [subheader "Import"]
+    [csv-upload-form]]])
 
 (defn login-page []
   [:div
