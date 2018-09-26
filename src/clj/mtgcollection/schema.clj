@@ -4,16 +4,15 @@
             [clj-time.format :as time-fmt]
             [clj-time.coerce :as time-coerce]))
 
-(def sets [
-           #:db{:ident :set/name
+(def sets [#:db{:ident :set/name
                 :valueType :db.type/string
                 :cardinality :db.cardinality/one
-                :unique :db.unique/value
+                :unique :db.unique/identity
                 :doc "A set's name"}
            #:db{:ident :set/code
                 :valueType :db.type/string
                 :cardinality :db.cardinality/one
-                :unique :db.unique/value
+                :unique :db.unique/identity
                 :doc "A set's code"}
            #:db{:ident :set/releaseDate
                 :valueType :db.type/instant
@@ -30,6 +29,9 @@
             #:db{:ident :card/type
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one}
+            #:db{:ident :card/subtypes
+                 :valueType :db.type/string
+                 :cardinality :db.cardinality/many}
             #:db{:ident :card/manaCost
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one}
@@ -50,6 +52,7 @@
                  :valueType :db.type/float
                  :cardinality :db.cardinality/one}
             #:db{:ident :card/multiverseid
+                 :unique :db.unique/identity
                  :valueType :db.type/long
                  :cardinality :db.cardinality/one}
             #:db{:ident :card/power

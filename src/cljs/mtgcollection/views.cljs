@@ -6,14 +6,21 @@
 (def >evt dispatch)
 
 ;;https://mtg.arnebrasseur.net/ZEN/Trapfinder's%20Trick.xlhq.jpg
-(defn card []
-  (let [card-sub (subscribe [:card])]
-    (fn []
-      (let [{:card/keys [name] :set/keys [code] set-name :set/name} @card-sub]
-        [:div
-         [:img.card {:src (str "https://mtg.arnebrasseur.net/" code "/" name ".xlhq.jpg")
-                     :on-click #(dispatch [:request-random-card])}]
-         code " - " set-name]))))
+(defn card [{:card/keys [name set rarity] :as card} & [opts]]
+  (let [cnt    (get-in card [:owned-card/_card 0 :owned-card/count])
+        width  (:width opts 300)
+        height (js/Math.round (* 1.396 width))
+        code   (:set/code set)]
+    [:img.card {:style {:border-color (case rarity
+                                        "Rare" "goldenrod"
+                                        "Uncommon" "silver"
+                                        "snow")
+                        :border-size "2px"
+                        :border-style "solid"}
+                :width    width :height height
+                :title    (str cnt " pieces")
+                :src      (str "https://res.cloudinary.com/mtgimg/image/upload/w_" width "/mtg/" code "/" name ".xlhq.jpg")
+                :on-click #(dispatch [:request-random-card])}]))
 
 (defn navbar []
   [:div.pv4.washed-blue.bb.b-solid.bw1.b--dark-gray.bg-dark-green.flex
@@ -57,8 +64,6 @@
           :login [:a {:on-click #(reset! type :register)} "register instead"]
           :register [:a {:on-click #(reset! type :login)} "log in instead"])]])))
 
-js/FormData.
-
 (defn csv-upload-form []
   (let [form-element (atom nil)]
     (fn []
@@ -75,13 +80,19 @@ js/FormData.
    (into [:h2.f3.mb2] caption)])
 
 (defn main-page []
-  [:div.col-xs-12
-   [:div
-    [subheader "Collection (" (<sub [:collection/count]) ")"]
-    ]
-   [:div
-    [subheader "Import"]
-    [csv-upload-form]]])
+  (let [cards (<sub [:collection/cards])]
+    [:div.col-xs-12
+     [:div
+      [subheader "Collection (" (count cards) ")"]
+      (doall (for [row (partition-all 4 (sort-by :card/colorIdentity cards))]
+               ^{:key (:card/multiverseid c)}
+               (into [:div.flex]
+                     (map (fn [c] [card c]))
+                     row)))
+      ]
+     [:div
+      [subheader "Import"]
+      [csv-upload-form]]]))
 
 (defn login-page []
   [:div

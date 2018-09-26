@@ -3,8 +3,9 @@ a {
 }
 
 .card {
-  border-radius: 10px;
-  width: 300px;
+  border-radius: 16px;
+  margin: 1em;
+  float: left;
 }
 
 body {

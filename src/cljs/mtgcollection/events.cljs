@@ -22,6 +22,11 @@
               (fn [db [_ card]]
                 (assoc db :card card)))
 
+;; #(dispatch [:request-random-card])
+;; => :ajax {}
+;; => GET /random-random
+;; => (dispatch [:install-new-card result])
+
 (reg-event-fx
  :user/register
  (fn [{:keys [db]} [_ handle password]]

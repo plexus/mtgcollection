@@ -12,7 +12,7 @@
                  [org.clojure/core.async "0.2.395"]
 
                  ;; db
-                 [com.datomic/datomic-pro "0.9.5544"]
+                 [com.datomic/datomic-pro "0.9.5561.62"]
                  [postgresql "9.3-1102.jdbc41"]
 
                  ;; ring
@@ -91,6 +91,8 @@
   :env {:datomic-uri
         ;; "datomic:dev://localhost:4334/mtgcollection"
         "datomic:sql://mtgcollection?jdbc:postgresql://localhost:5432/datomic?user=datomic&password=datomic"}
+
+  :repositories {"my.datomic.com" {:url "https://my.datomic.com/repo"}}
 
   :profiles
   {:dev

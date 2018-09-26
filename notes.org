@@ -1,9 +1,18 @@
 * Links
   - [[http://www.slightlymagic.net/forum/viewtopic.php?f=15&t=18042#][Torrent with card scans]]
+  - [[https://mega.nz/#F!p8RBBT6Y!ksgSGJbMsKU0HX_ho-QS5g][Direct downloads per set]]
+  - [[https://mtgjson.com/][MTGJSON]]
 
-* Image missing
+https://mtg.arnebrasseur.net/EMN/Weirded%20Vampire.xlhq.jpg
+https://res.cloudinary.com/mtgimg/image/upload/mtg/EMN/Weirded%20Vampire.xlhq.jpg
+https://res.cloudinary.com/mtgimg/image/upload/w_200/mtg/EMN/Weirded%20Vampire.xlhq.jpg
+https://cloudinary.com/console
 
-https://mtg.arnebrasseur.net/EMN/Weirded Vampire.xlhq.jpg
+(str "https://mtg.arnebrasseur.net/" set-name "/" card-name ".xlhq.jpg")
+(str "https://res.cloudinary.com/mtgimg/image/upload/" set-name "/" card-name ".xlhq.jpg")
+(str "https://res.cloudinary.com/mtgimg/image/upload/" transforms "/" set-name "/" card-name ".xlhq.jpg")
+
+* Missing sets
 
 http://mtgsalvation.gamepedia.com/Set#List_of_Magic_expansions_and_sets
 
@@ -11,7 +20,33 @@ C15 en BFZ zijn er nog
 
 Missing:
 
-| EMA | 2016-06 | Eternal Masters                  | {EMA_symbol} | Compilation set  |                                                      |
-| C16 | 2016-11 | Commander 2016                   | {C16_symbol} | Box set          | Commander set #6                                     |
-| PCA | 2016-11 | Planechase Anthology             | {PCA_symbol} | Box set          | Planechase set #3                                    |
-| AER | 2017-01 | Aether Revolt                    | {AER_symbol} | Expansion set    | 73rd expansion                                       |
+| PCA | 2016-11 | Planechase Anthology                     | Box set          | Planechase set #3                          |
+| AER | 2017-01 | Aether Revolt                            | Expansion set    | 73rd expansion                             |
+| MM3 | 2017-03 | Modern Masters 2017                      | Compilation set  | Masters set #4                             |
+| DDS | 2017-03 | Duel Decks: Mind vs. Might               | Box set          | Duel Decks set #19                         |
+| W17 | 2017-04 | Welcome Deck 2017                        | Compilation set  | Welcome Deck set #2                        |
+| AKH | 2017-04 | Amonkhet                                 | Expansion set    | 74th expansion                             |
+| MPS | 2017-07 | Amonkhet Invocations                     | Compilation set  | Masterpiece Series set #3 (Amonkhet block) |
+| CMA | 2017-06 | Commander Anthology                      | Box set          | Commander set #7                           |
+| E01 | 2017-06 | Archenemy: Nicol Bolas                   | Supplemental set | Archenemy set #2, Annex set #1             |
+| HOU | 2017-07 | Hour of Devastation                      | Expansion set    | 75th expansion                             |
+| C17 | 2017-08 | Commander 2017                           | Box set          | Commander set #8                           |
+| XLN | 2017-09 | Ixalan                                   | Expansion set    | 76th expansion                             |
+| DDT | 2017-11 | Duel Decks: Merfolk vs. Goblins          | Box set          | Duel Decks set #20                         |
+| IMA | 2017-11 | Iconic Masters                           | Compilation set  | Masters set #5                             |
+| E02 | 2017-11 | Explorers of Ixalan                      | Supplemental set | Annex set #2                               |
+| V17 | 2017-11 | From the Vault: Transform                | Box set          | From the Vault set #10                     |
+| UST | 2017-12 | Unstable                                 | Un-set           | Un-set #3                                  |
+| RIX | 2018-01 | Rivals of Ixalan                         | Expansion set    | 77th expansion                             |
+| A25 | 2018-03 | Masters 25                               | Compilation set  | Masters set #6                             |
+| DDU | 2018-04 | Duel Decks: Elves vs. Inventors          | Box set          | Duel Decks set #21                         |
+| Q01 | 2018-04 | Challenger Decks                         | Box set          | Challenger Decks set #1                    |
+| DOM | 2018-04 | Dominaria                                | Expansion set    | 78th expansion                             |
+| CM2 | 2018-06 | Commander Anthology Volume II            | Box set          | Commander set #9                           |
+| BBD | 2018-06 | Battlebond                               | Supplemental set |                                            |
+| SS1 | 2018-06 | Signature Spellbook: Jace                | Box set          | Signature Spellbook set #1                 |
+| GS1 | 2018-06 | Global Series: Jiang Yanggu & Mu Yanling | Box set          | Global Series set #1                       |
+| M19 | 2018-07 | Core Set 2019                            | Core set         | Core set #18                               |
+| C18 | 2018-08 | Commander 2018                           | Box set          | Commander set #10                          |
+| GRN | 2018-10 | Guilds of Ravnica                        | Expansion set    | 79th expansion                             |
+| RNA | 2019-01 | Ravnica Allegiance                       | Expansion set    | 80th expansion                             |

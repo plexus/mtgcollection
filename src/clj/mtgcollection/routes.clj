@@ -4,11 +4,13 @@
             [compojure.core :refer [GET POST routes]]
             [compojure.route :refer [resources]]
             [mtgcollection.cards :refer [random-card]]
+            [mtgcollection.queries :as queries]
             [mtgcollection.collection :as collection]
             [mtgcollection.routes.user :refer [user-routes]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]]
             [ring.util.response :as res]
-            [datomic.api :as d]))
+            [datomic.api :as d]
+            ))
 
 (defn- read-csv [file]
   (with-open [in-file (io/reader file)]
@@ -20,24 +22,20 @@
 (defn collection-routes [conn]
   (routes
    (GET "/collection" req
-     {:body
-      (if-let [uid (uid req)]
-        {:count (d/q '[:find (count ?cid) .
-                       :in $ ?uid
-                       :where
-                       [?uid :user/collection ?cid]]
-                     (d/db conn) uid)}
-        {:count 0})})
+        {:body
+         (if-let [uid (uid req)]
+           (queries/collection-set-cards (d/db conn) uid ["ICE" "ALL"])
+           [])})
 
    (wrap-multipart-params
     (POST "/collection/csv" [file :as req]
-      (when-let [uid (uid req)]
-        (let [db (d/db conn)
-              {:keys [txs not-found]} (->> (read-csv (:tempfile file))
-                                           (drop 1)
-                                           (collection/import-csv db uid))]
-          (d/transact conn txs)
-          {:body {:not-found not-found}}))))))
+          (when-let [uid (uid req)]
+            (let [db (d/db conn)
+                  {:keys [txs not-found]} (->> (read-csv (:tempfile file))
+                                               (drop 1)
+                                               (collection/import-csv db uid))]
+              (d/transact conn txs)
+              {:body {:not-found not-found}}))))))
 
 (defn app-routes [{:keys [datomic]}]
   (let [conn (:conn datomic)]

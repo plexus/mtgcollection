@@ -16,7 +16,10 @@
             [ring.middleware.reload :refer [wrap-reload]]
             [datomic.api :as d]))
 
-(defn- mtg-json-data []
+(def go reloaded.repl/go)
+(def reset reloaded.repl/reset)
+
+(defn mtg-json-data []
   (-> "AllSets-x.json" io/resource io/reader json/parse-stream vals))
 
 (defn load-mtgjson-into-datomic [db-uri]
@@ -50,10 +53,13 @@
      (fw-repl-api/cljs-repl))))
 
 (set-refresh-dirs "src" "dev")
-(reloaded.repl/set-init! #(dev-system))
+(reloaded.repl/set-init! dev-system)
 
-(defn datomic []
+(defn conn []
   (:conn (:datomic reloaded.repl/system)))
 
+(defn db []
+  (d/db (conn)))
+
 (defn q [qry & args]
-  (apply d/q qry (d/db (datomic)) args))
+  (apply d/q qry (db) args))

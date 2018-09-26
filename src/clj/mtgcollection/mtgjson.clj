@@ -41,7 +41,7 @@
   (-> card
       (extract-data :card [:name :types :type :manaCost :cmc :rarity
                            :colorIdentity :text :multiverseid :toughness
-                           :power :flavor :artist])
+                           :power :flavor :artist :subtypes])
       (?update :card/cmc str)
       (?update :card/power #(if (int? %) (float %)))
       (?update :card/toughness #(if (int? %) (float %)))

@@ -5,8 +5,10 @@
 
 (defstyles style
   [:a {:cursor "pointer"}]
-  [:.card {:border-radius "10px"
-           :width "300px"}]
+  [:.card {:border-radius "16px"
+           :margin "1em"
+           :float "left"
+           #_#_:width "300px"}]
   [:body {:background-color (lighten (hex->rgb "#75A88B") 40)}]
   [:.navbar {:background-color (darken (hex->rgb "#75A88B") 30)
              :color "#fff"
@@ -22,4 +24,4 @@
                :margin "1.2em"}]]
 
   [:.margin-bottom {:margin-bottom "2rem"}]
-)
+  )
