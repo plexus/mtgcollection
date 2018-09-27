@@ -2,6 +2,9 @@
   - [[http://www.slightlymagic.net/forum/viewtopic.php?f=15&t=18042#][Torrent with card scans]]
   - [[https://mega.nz/#F!p8RBBT6Y!ksgSGJbMsKU0HX_ho-QS5g][Direct downloads per set]]
   - [[https://mtgjson.com/][MTGJSON]]
+  - [[https://www.slightlymagic.net/forum/viewtopic.php?t=4430][mana symbols in vector format]]
+
+https://scryfall.com/sets/ddd?as=grid&order=name
 
 https://mtg.arnebrasseur.net/EMN/Weirded%20Vampire.xlhq.jpg
 https://res.cloudinary.com/mtgimg/image/upload/mtg/EMN/Weirded%20Vampire.xlhq.jpg
@@ -16,17 +19,8 @@ https://cloudinary.com/console
 
 http://mtgsalvation.gamepedia.com/Set#List_of_Magic_expansions_and_sets
 
-C15 en BFZ zijn er nog
-
 Missing:
 
-| PCA | 2016-11 | Planechase Anthology                     | Box set          | Planechase set #3                          |
-| AER | 2017-01 | Aether Revolt                            | Expansion set    | 73rd expansion                             |
-| MM3 | 2017-03 | Modern Masters 2017                      | Compilation set  | Masters set #4                             |
-| DDS | 2017-03 | Duel Decks: Mind vs. Might               | Box set          | Duel Decks set #19                         |
-| W17 | 2017-04 | Welcome Deck 2017                        | Compilation set  | Welcome Deck set #2                        |
-| AKH | 2017-04 | Amonkhet                                 | Expansion set    | 74th expansion                             |
-| MPS | 2017-07 | Amonkhet Invocations                     | Compilation set  | Masterpiece Series set #3 (Amonkhet block) |
 | CMA | 2017-06 | Commander Anthology                      | Box set          | Commander set #7                           |
 | E01 | 2017-06 | Archenemy: Nicol Bolas                   | Supplemental set | Archenemy set #2, Annex set #1             |
 | HOU | 2017-07 | Hour of Devastation                      | Expansion set    | 75th expansion                             |
@@ -35,7 +29,6 @@ Missing:
 | DDT | 2017-11 | Duel Decks: Merfolk vs. Goblins          | Box set          | Duel Decks set #20                         |
 | IMA | 2017-11 | Iconic Masters                           | Compilation set  | Masters set #5                             |
 | E02 | 2017-11 | Explorers of Ixalan                      | Supplemental set | Annex set #2                               |
-| V17 | 2017-11 | From the Vault: Transform                | Box set          | From the Vault set #10                     |
 | UST | 2017-12 | Unstable                                 | Un-set           | Un-set #3                                  |
 | RIX | 2018-01 | Rivals of Ixalan                         | Expansion set    | 77th expansion                             |
 | A25 | 2018-03 | Masters 25                               | Compilation set  | Masters set #6                             |

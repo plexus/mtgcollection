@@ -31,10 +31,12 @@
 
 (defn reset-db []
   (let [db-uri (env :datomic-uri)]
-    (api/delete-database db-uri)
-    (api/create-database db-uri)
+    #_(api/delete-database db-uri)
+    #_(api/create-database db-uri)
     (schema/setup-db-schema db-uri)
     (load-mtgjson-into-datomic db-uri)))
+
+(reset-db)
 
 (defn dev-system []
   (-> (prod-system)

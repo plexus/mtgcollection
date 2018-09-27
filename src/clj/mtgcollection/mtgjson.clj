@@ -28,20 +28,32 @@
                               (if (and (some #{(keyword k)} keys) (not (nil? v)))
                                 [(keyword (name prefix) k) v])))))
 
+(defn rename-key [m old-key new-key]
+  (if (contains? m old-key)
+    (assoc (dissoc m old-key) new-key (get m old-key))
+    m))
+
+(defn rename-keys [m ks]
+  (reduce-kv rename-key m ks))
+
 (defn set-record [set-data]
   #:set{:db/id (api/tempid :db.part/user)
         :name (get set-data "name")
         :code (get set-data "code")
-        :releaseDate (-> set-data
-                         (get "releaseDate")
-                         parse-date
-                         time-coerce/to-date)})
+        :online-only (get set-data "onlineOnly")
+        :release-date (-> set-data
+                          (get "releaseDate")
+                          parse-date
+                          time-coerce/to-date)})
 
 (defn card-record [set-id card]
   (-> card
-      (extract-data :card [:name :types :type :manaCost :cmc :rarity
+      (extract-data :card [:name :names :types :type :manaCost :cmc :rarity
                            :colorIdentity :text :multiverseid :toughness
                            :power :flavor :artist :subtypes])
+      (rename-keys {:card/colorIdentity :card/color-identity
+                    :card/manaCost :card/mana-cost
+                    :card/multiverseid :card/multiverse-id})
       (?update :card/cmc str)
       (?update :card/power #(if (int? %) (float %)))
       (?update :card/toughness #(if (int? %) (float %)))

@@ -6,11 +6,29 @@
      [?uid :user/collection ?oid]
      [?oid :owned-card/card ?cid]]])
 
-(defn sets [db]
+(defn sets
+  ([db codes]
+   (map (partial d/entity db)
+        (d/q
+         '[:find [?sid ...]
+           :in $ [?code ...]
+           :where [?sid :set/code ?code]]
+         db
+         codes)))
+  ([db]
+   (map (partial d/entity db)
+        (d/q
+         '[:find [?sid ...]
+           :in $
+           :where [?sid :set/code _]]
+         db))))
+
+(defn all-cards [db]
   (d/q
-   '[:find [(pull ?sid [*]) ...]
+   '[:find [(pull ?cid [* {:card/set [:set/code]} {:owned-card/_card [:owned-card/count]}]) ...]
      :in $
-     :where [?sid :set/code _]]
+     :where [?cid :card/name]
+     ]
    db))
 
 (defn collection-cards [db uid]
@@ -45,8 +63,10 @@
       first
       :owned-card/count)
 
-
-
-
+  (time
+   (doall
+    (map (juxt :card/name :card/image-path)
+         (mtgcollection.images/add-images
+          (collection-set-cards (user/db) [:user/handle "aaa"] ["ICE"])))))
 
   )

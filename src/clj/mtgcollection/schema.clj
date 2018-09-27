@@ -14,15 +14,22 @@
                 :cardinality :db.cardinality/one
                 :unique :db.unique/identity
                 :doc "A set's code"}
-           #:db{:ident :set/releaseDate
+           #:db{:ident :set/release-date
                 :valueType :db.type/instant
                 :cardinality :db.cardinality/one
-                :doc "A set's release date"}])
+                :doc "A set's release date"}
+           #:db{:ident :set/online-only
+                :valueType :db.type/boolean
+                :cardinality :db.cardinality/one
+                :doc "Only available in Magic Online"}])
 
 (def cards [#:db{:ident :card/name
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one
                  :fulltext true}
+            #:db{:ident :card/names
+                 :valueType :db.type/string
+                 :cardinality :db.cardinality/many}
             #:db{:ident :card/types
                  :valueType :db.type/string
                  :cardinality :db.cardinality/many}
@@ -32,7 +39,7 @@
             #:db{:ident :card/subtypes
                  :valueType :db.type/string
                  :cardinality :db.cardinality/many}
-            #:db{:ident :card/manaCost
+            #:db{:ident :card/mana-cost
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one}
             #:db{:ident :card/cmc
@@ -41,7 +48,7 @@
             #:db{:ident :card/rarity
                  :valueType :db.type/string
                  :cardinality :db.cardinality/one}
-            #:db{:ident :card/colorIdentity
+            #:db{:ident :card/color-identity
                  :valueType :db.type/string
                  :cardinality :db.cardinality/many}
             #:db{:ident :card/text
@@ -51,7 +58,7 @@
             #:db{:ident :card/toughness
                  :valueType :db.type/float
                  :cardinality :db.cardinality/one}
-            #:db{:ident :card/multiverseid
+            #:db{:ident :card/multiverse-id
                  :unique :db.unique/identity
                  :valueType :db.type/long
                  :cardinality :db.cardinality/one}
@@ -66,7 +73,8 @@
                  :cardinality :db.cardinality/one}
             #:db{:ident :card/set
                  :valueType :db.type/ref
-                 :cardinality :db.cardinality/one}])
+                 :cardinality :db.cardinality/one}
+            #:db{:ident :card/image-slug}])
 
 (def users [#:db{:ident :user/handle
                  :unique :db.unique/value

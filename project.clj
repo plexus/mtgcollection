@@ -39,7 +39,10 @@
                  [cljs-ajax "0.5.8"]
                  [day8.re-frame/http-fx "0.1.3"]
                  [re-frisk "0.3.2"]
-                 [cljs-ajax "0.5.8"]]
+                 [cljs-ajax "0.5.8"]
+
+                 [clj-fuzzy "0.4.1"]
+                 ]
 
 
   :plugins [[lein-environ "1.1.0"]
